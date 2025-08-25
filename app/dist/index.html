@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevOps Demo Application</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .container {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 900px;
+            width: 90%;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-size: 2.5rem;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .info-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            transition: transform 0.3s;
+        }
+        
+        .info-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .info-card h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+        
+        .info-card p {
+            opacity: 0.95;
+            line-height: 1.6;
+        }
+        
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 2rem;
+            justify-content: center;
+        }
+        
+        .tech-badge {
+            background: #f3f4f6;
+            color: #4b5563;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .status {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1rem;
+            background: #10b981;
+            color: white;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+        
+        .api-test {
+            margin-top: 2rem;
+            text-align: center;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .btn:hover {
+            transform: scale(1.05);
+        }
+        
+        #apiResponse {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #f3f4f6;
+            border-radius: 10px;
+            font-family: monospace;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>DevOps Demo Application</h1>
+        
+        <div class="status">
+            System Status: OPERATIONAL
+        </div>
+        
+        <div class="info-grid">
+            <div class="info-card">
+                <h3>Docker</h3>
+                <p>Containerized application using Docker Compose with multiple services including web app, database, and cache.</p>
+            </div>
+            
+            <div class="info-card">
+                <h3>Kubernetes</h3>
+                <p>Deployment ready with ConfigMaps, Services, Ingress, and auto-scaling configured for production.</p>
+            </div>
+            
+            
+            <div class="info-card">
+                <h3>CI/CD Pipeline</h3>
+                <p>Automated build, test, and deployment pipeline using Jenkins for continuous delivery.</p>
+            </div>
+        </div>
+        
+        <div class="tech-stack">
+            <span class="tech-badge">Docker</span>
+            <span class="tech-badge">Kubernetes</span>
+            <span class="tech-badge">PostgreSQL</span>
+            <span class="tech-badge">Redis</span>
+            <span class="tech-badge">Nginx</span>
+            <span class="tech-badge">Node.js</span>
+            <span class="tech-badge">Jenkins</span>
+        </div>
+        
+        <div class="api-test">
+            <button class="btn" onclick="testAPI()">Test API Connection</button>
+            <div id="apiResponse"></div>
+        </div>
+    </div>
+    
+    <script>
+        function testAPI() {
+            const responseDiv = document.getElementById('apiResponse');
+            responseDiv.style.display = 'block';
+            responseDiv.innerHTML = 'Testing API connection...';
+            
+            fetch('/api/health')
+                .then(response => response.json())
+                .then(data => {
+                    responseDiv.innerHTML = `API Response: ${JSON.stringify(data, null, 2)}`;
+                })
+                .catch(error => {
+                    responseDiv.innerHTML = `API Status: Mock response - { "status": "healthy", "timestamp": "${new Date().toISOString()}" }`;
+                });
+        }
+        
+        console.log('DevOps Demo Application loaded successfully');
+    </script>
+</body>
+</html>

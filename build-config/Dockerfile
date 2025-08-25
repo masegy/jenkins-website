@@ -1,6 +1,10 @@
-FROM ubi9/nginx-118
-LABEL origin="default"
+FROM nginx:alpine
+
+WORKDIR /usr/share/nginx/html
+
 COPY dist/ .
-ADD nginx.conf "${NGINX_CONF_PATH}"
+COPY nginx.conf /etc/nginx/nginx.conf
+
+EXPOSE 80 443
 
 CMD ["nginx", "-g", "daemon off;"]
